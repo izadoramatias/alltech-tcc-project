@@ -9,7 +9,7 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @extends ServiceEntityRepository<Addresses>
  *
- * @method Addresses|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Addresses|null find($id_address, $lockMode = null, $lockVersion = null)
  * @method Addresses|null findOneBy(array $criteria, array $orderBy = null)
  * @method Addresses[]    findAll()
  * @method Addresses[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)

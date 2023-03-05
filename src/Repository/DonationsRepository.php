@@ -9,7 +9,7 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @extends ServiceEntityRepository<Donations>
  *
- * @method Donations|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Donations|null find($id_donation, $lockMode = null, $lockVersion = null)
  * @method Donations|null findOneBy(array $criteria, array $orderBy = null)
  * @method Donations[]    findAll()
  * @method Donations[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)

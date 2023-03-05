@@ -11,9 +11,6 @@ class Donations
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
-
-    #[ORM\Column]
     private ?int $id_donation = null;
 
     #[ORM\Column(length: 45)]
@@ -31,13 +28,9 @@ class Donations
     #[ORM\Column(length: 45)]
     private ?string $donation_type = null;
 
+    #[ORM\JoinColumn(name: 'address_id', referencedColumnName: 'id_address')]
     #[ORM\ManyToOne(inversedBy: 'donations')]
     private ?Addresses $address_id = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getIdDonation(): ?int
     {

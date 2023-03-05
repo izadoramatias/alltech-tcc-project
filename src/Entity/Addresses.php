@@ -13,9 +13,6 @@ class Addresses
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
-
-    #[ORM\Column]
     private ?int $id_address = null;
 
     #[ORM\Column(length: 45)]
@@ -33,11 +30,6 @@ class Addresses
     public function __construct()
     {
         $this->donations = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getIdAddress(): ?int
