@@ -1,0 +1,10 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+hello_world:
+    path: /hello
+    controller: App\Controller\HelloWorldController::helloWorld
+    methods: ['GET']
