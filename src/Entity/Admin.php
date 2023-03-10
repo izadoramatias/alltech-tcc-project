@@ -12,9 +12,6 @@ class Admin
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
-
-    #[ORM\Column]
     private ?int $id_admin = null;
 
     #[ORM\Column(length: 45)]
@@ -23,21 +20,9 @@ class Admin
     #[ORM\Column(length: 45)]
     private ?string $password = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getIdAdmin(): ?int
     {
         return $this->id_admin;
-    }
-
-    public function setIdAdmin(int $id_admin): self
-    {
-        $this->id_admin = $id_admin;
-
-        return $this;
     }
 
     public function getEmail(): ?string
