@@ -8,3 +8,7 @@ hello_world:
     path: /hello
     controller: App\Controller\HelloWorldController::helloWorld
     methods: ['GET']
+register_donation:
+    path: /new
+    controller: App\Controller\DonationController::newDonation
+    methods: ['POST']

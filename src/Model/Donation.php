@@ -2,9 +2,6 @@
 
 namespace App\Model;
 
-use App\Entity\Addresses;
-use App\Model\Address;
-
 class Donation
 {
     private ?string $first_name = null;
@@ -12,7 +9,7 @@ class Donation
     private ?Email $email = null;
     private ?string $donation_description = null;
     private ?string $donation_type = null;
-    private ?Address $address_id = null;
+    private Address $address;
 
     public function __construct(
         string $first_name,
@@ -20,14 +17,14 @@ class Donation
         Email $email,
         string $donation_description,
         string $donation_type,
-        Address $address_id
+        Address $address
     ) {
         $this->first_name = $first_name;
         $this->last_name = $last_name;
         $this->email = $email;
         $this->donation_description = $donation_description;
         $this->donation_type = $donation_type;
-        $this->address_id = $address_id;
+        $this->address = $address;
     }
 
     public function getFirstName(): ?string
@@ -55,8 +52,33 @@ class Donation
         return $this->donation_type;
     }
 
-    public function getAddressId(): ?Address
+    public function getAddress(): ?Address
     {
-        return $this->address_id;
+        return $this->address;
+    }
+
+    public function setFirstName(?string $first_name): void
+    {
+        $this->first_name = $first_name;
+    }
+
+    public function setLastName(?string $last_name): void
+    {
+        $this->last_name = $last_name;
+    }
+
+    public function setEmail(?Email $email): void
+    {
+        $this->email = $email;
+    }
+
+    public function setDonationDescription(?string $donation_description): void
+    {
+        $this->donation_description = $donation_description;
+    }
+
+    public function setDonationType(?string $donation_type): void
+    {
+        $this->donation_type = $donation_type;
     }
 }

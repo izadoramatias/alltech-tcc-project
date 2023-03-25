@@ -28,20 +28,18 @@ class Donations
     #[ORM\Column(length: 45)]
     private ?string $donation_type = null;
 
-    #[ORM\JoinColumn(name: 'address_id', referencedColumnName: 'id_address')]
-    #[ORM\ManyToOne(inversedBy: 'donations')]
-    private ?Addresses $address_id = null;
+    #[ORM\Column(length: 45)]
+    private ?string $street = null;
+
+    #[ORM\Column(length: 45)]
+    private ?string $neighborhood = null;
+
+    #[ORM\Column(length: 45)]
+    private ?string $number = null;
 
     public function getIdDonation(): ?int
     {
         return $this->id_donation;
-    }
-
-    public function setIdDonation(int $id_donation): self
-    {
-        $this->id_donation = $id_donation;
-
-        return $this;
     }
 
     public function getFirstName(): ?string
@@ -104,14 +102,38 @@ class Donations
         return $this;
     }
 
-    public function getAddressId(): ?Addresses
+    public function getStreet(): ?string
     {
-        return $this->address_id;
+        return $this->street;
     }
 
-    public function setAddressId(?Addresses $address_id): self
+    public function setStreet(string $street): self
     {
-        $this->address_id = $address_id;
+        $this->street = $street;
+
+        return $this;
+    }
+
+    public function getNeighborhood(): ?string
+    {
+        return $this->neighborhood;
+    }
+
+    public function setNeighborhood(string $neighborhood): self
+    {
+        $this->neighborhood = $neighborhood;
+
+        return $this;
+    }
+
+    public function getNumber(): ?string
+    {
+        return $this->number;
+    }
+
+    public function setNumber(string $number): self
+    {
+        $this->number = $number;
 
         return $this;
     }

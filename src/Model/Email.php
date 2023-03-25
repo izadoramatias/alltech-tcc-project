@@ -6,6 +6,12 @@ use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 class Email
 {
+    private string $email;
+    public function __construct(string $email)
+    {
+        $this->email = $this->validateEmail($email);
+    }
+
     public function validateEmail(string $email): string
     {
         $emailPattern = '/^[^@\s]+@[^@\s]+\.[^@\s]+$/';
