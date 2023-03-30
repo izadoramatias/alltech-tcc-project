@@ -12,3 +12,7 @@ register_donation:
     path: /new
     controller: App\Controller\DonationController::newDonation
     methods: ['POST']
+find_one_donation:
+    path: /donation/{id}
+    controller: App\Controller\DonationController::listDonation
+    methods: ['GET']

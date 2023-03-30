@@ -2,10 +2,26 @@
 
 namespace App\Service;
 
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
+
 class ValidateDonationForm
 {
     public function validateData($jsonData): string
     {
+        foreach ($jsonData as $key => $value) {
+            if ($key === 'address') {
+                foreach ($value as $subValue) {
+                    if (empty($subValue)) {
+                        throw new BadRequestException('Todos os campos devem ser preenchidos.');
+                    }
+                }
+            } else {
+                if (empty($value)) {
+                    throw new BadRequestException('Todos os campos devem ser preenchidos.');
+                }
+            }
+        }
+
         $first_name = htmlspecialchars($jsonData->first_name);
         $last_name = htmlspecialchars($jsonData->last_name);
         $email = filter_var($jsonData->email, FILTER_VALIDATE_EMAIL);
