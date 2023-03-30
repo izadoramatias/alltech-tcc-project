@@ -20,4 +20,9 @@ class Email
         }
         throw new BadRequestException('O email informado é inválido.', 400);
     }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
 }

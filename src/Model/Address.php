@@ -9,4 +9,28 @@ class Address
         private string $street,
         private string $number
     ){}
+
+    /**
+     * @return string
+     */
+    public function getNeighborhood(): string
+    {
+        return $this->neighborhood;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStreet(): string
+    {
+        return $this->street;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNumber(): string
+    {
+        return $this->number;
+    }
 }

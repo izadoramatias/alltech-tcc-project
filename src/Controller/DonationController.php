@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Helper\DonationFactory;
 use App\Service\ValidateDonationForm;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Serializer;
 
 class DonationController
 {
@@ -17,7 +19,7 @@ class DonationController
     public function __construct(
         DonationFactory $donationFactory,
         EntityManagerInterface $entityManager,
-        ValidateDonationForm $validateForm
+        ValidateDonationForm $validateForm,
     ) {
         $this->donationFactory = $donationFactory;
         $this->entityManager = $entityManager;
@@ -30,11 +32,10 @@ class DonationController
         $validatedData = $this->validateForm->validateData(json_decode($content));
         $json = json_decode($validatedData);
 
-        var_dump();
-
         $donation = $this->donationFactory->createDonation($json);
+        $donationEntity = $this->donationFactory->createDonationEntity($donation);
 
-        $this->entityManager->persist($donation);
+        $this->entityManager->persist($donationEntity);
         $this->entityManager->flush();
 
 
@@ -42,6 +43,6 @@ class DonationController
 //        var_dump($donation);
 //        echo "</pre>";
 
-        return new Response(json_encode($donation), Response::HTTP_CREATED);
+        return new JsonResponse($donationEntity->jsonSerialize(),Response::HTTP_CREATED);
     }
 }

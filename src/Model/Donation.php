@@ -2,6 +2,9 @@
 
 namespace App\Model;
 
+
+use Doctrine\ORM\Mapping as ORM;
+
 class Donation
 {
     private ?string $first_name = null;
@@ -37,9 +40,9 @@ class Donation
         return $this->last_name;
     }
 
-    public function getEmail(): ?Email
+    public function getEmail(): string
     {
-        return $this->email;
+        return $this->email->getEmail();
     }
 
     public function getDonationDescription(): ?string

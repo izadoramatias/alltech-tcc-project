@@ -4,9 +4,10 @@ namespace App\Entity;
 
 use App\Repository\DonationsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JetBrains\PhpStorm\Internal\TentativeType;
 
 #[ORM\Entity(repositoryClass: DonationsRepository::class)]
-class Donations
+class Donations implements \JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -136,5 +137,20 @@ class Donations
         $this->number = $number;
 
         return $this;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'id' => $this->getIdDonation(),
+            'first_name' => $this->getFirstName(),
+            'last_name' => $this->getLastName(),
+            'email' => $this->getEmail(),
+            'donation_description' => $this->getDonationDescription(),
+            'donation_type' => $this->getDonationType(),
+            'neighborhood' => $this->getNeighborhood(),
+            'street' => $this->getStreet(),
+            'number' => $this->getNumber(),
+        ];
     }
 }
