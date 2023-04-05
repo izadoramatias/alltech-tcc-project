@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Helper\ResponseHelper;
+use App\Helper\SerializeObjectsList;
 use App\Repository\DonationsRepository;
 use App\Service\DonationDTO;
 use App\Service\ValidateDonationForm;
@@ -17,17 +18,20 @@ class DonationController
     private ValidateDonationForm $validateForm;
     private DonationsRepository $donationsRepository;
     private DonationDTO $donationDTO;
+    private SerializeObjectsList $serializeObjectsList;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         ValidateDonationForm $validateForm,
         DonationsRepository $donationsRepository,
-        DonationDTO $donationDTO
+        DonationDTO $donationDTO,
+        SerializeObjectsList $serializeObjectsList
     ) {
         $this->entityManager = $entityManager;
         $this->validateForm = $validateForm;
         $this->donationsRepository = $donationsRepository;
         $this->donationDTO = $donationDTO;
+        $this->serializeObjectsList = $serializeObjectsList;
     }
 
     public function newDonation(Request $request): JsonResponse
@@ -57,5 +61,14 @@ class DonationController
 
         return new JsonResponse($response->jsonSerialize(), 200);
     }
-    
+
+
+        public function listDonations(): JsonResponse
+        {
+            $donations = $this->donationsRepository->findAll();
+
+            $donationsArray = $this->serializeObjectsList->toArray($donations);
+
+            return new JsonResponse($donationsArray, 200);
+        }
 }
