@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Model\Donation;
 use App\Repository\DonationsRepository;
 use Doctrine\ORM\Mapping as ORM;
 use JetBrains\PhpStorm\Internal\TentativeType;

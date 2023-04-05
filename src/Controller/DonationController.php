@@ -2,46 +2,43 @@
 
 namespace App\Controller;
 
-use App\Helper\DonationFactory;
 use App\Helper\ResponseHelper;
 use App\Repository\DonationsRepository;
+use App\Service\DonationDTO;
 use App\Service\ValidateDonationForm;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Serializer;
 
 class DonationController
 {
-    private DonationFactory $donationFactory;
     private EntityManagerInterface $entityManager;
     private ValidateDonationForm $validateForm;
     private DonationsRepository $donationsRepository;
+    private DonationDTO $donationDTO;
 
     public function __construct(
-        DonationFactory $donationFactory,
         EntityManagerInterface $entityManager,
         ValidateDonationForm $validateForm,
-        DonationsRepository $donationsRepository
+        DonationsRepository $donationsRepository,
+        DonationDTO $donationDTO
     ) {
-        $this->donationFactory = $donationFactory;
         $this->entityManager = $entityManager;
         $this->validateForm = $validateForm;
         $this->donationsRepository = $donationsRepository;
+        $this->donationDTO = $donationDTO;
     }
 
     public function newDonation(Request $request): JsonResponse
     {
         $content = $request->getContent();
         $validatedData = $this->validateForm->validateData(json_decode($content));
-        $json = json_decode($validatedData);
+        $donationData = json_decode($validatedData, true);
 
-        $donation = $this->donationFactory->createDonation($json);
-        $donationEntity = $this->donationFactory->createDonationEntity($donation);
+        $dto = $this->donationDTO->createDonationEntity($donationData);
 
-        $this->entityManager->persist($donationEntity);
+        $this->entityManager->persist($dto);
         $this->entityManager->flush();
 
 
@@ -49,7 +46,7 @@ class DonationController
 //        var_dump($donation);
 //        echo "</pre>";
 
-        return new JsonResponse($donationEntity->jsonSerialize(),Response::HTTP_CREATED);
+        return new JsonResponse($dto->jsonSerialize(),Response::HTTP_CREATED);
     }
 
     public function listDonation(int $id): JsonResponse

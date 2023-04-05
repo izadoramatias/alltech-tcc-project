@@ -8,19 +8,7 @@ class ValidateDonationForm
 {
     public function validateData($jsonData): string
     {
-        foreach ($jsonData as $key => $value) {
-            if ($key === 'address') {
-                foreach ($value as $subValue) {
-                    if (empty($subValue)) {
-                        throw new BadRequestException('Todos os campos devem ser preenchidos.');
-                    }
-                }
-            } else {
-                if (empty($value)) {
-                    throw new BadRequestException('Todos os campos devem ser preenchidos.');
-                }
-            }
-        }
+        $this->checkIfHasEmptyField($jsonData);
 
         $first_name = htmlspecialchars($jsonData->first_name);
         $last_name = htmlspecialchars($jsonData->last_name);
@@ -42,5 +30,22 @@ class ValidateDonationForm
             "street" => $street,
             "number" => $number
         ]);
+    }
+
+    private function checkIfHasEmptyField($jsonData): void
+    {
+        foreach ($jsonData as $key => $value) {
+            if ($key === 'address') {
+                foreach ($value as $subValue) {
+                    if (empty($subValue)) {
+                        throw new BadRequestException('Todos os campos devem ser preenchidos.');
+                    }
+                }
+            } else {
+                if (empty($value)) {
+                    throw new BadRequestException('Todos os campos devem ser preenchidos.');
+                }
+            }
+        }
     }
 }
