@@ -45,12 +45,9 @@ class DonationController
         $this->entityManager->persist($dto);
         $this->entityManager->flush();
 
-
-//        echo "<pre>";
-//        var_dump($donation);
-//        echo "</pre>";
-
-        return new JsonResponse($dto->jsonSerialize(),Response::HTTP_CREATED);
+        return new JsonResponse($dto->jsonSerialize(),Response::HTTP_CREATED, [
+            'Content-Type' => 'application/json'
+        ]);
     }
 
     public function listDonation(int $id): JsonResponse
@@ -59,16 +56,19 @@ class DonationController
 
         $response = ResponseHelper::response($donation);
 
-        return new JsonResponse($response->jsonSerialize(), 200);
+        return new JsonResponse($response->jsonSerialize(), 200, [
+            'Content-Type' => 'application/json'
+        ]);
     }
 
+    public function listDonations(): JsonResponse
+    {
+        $donations = $this->donationsRepository->findAll();
 
-        public function listDonations(): JsonResponse
-        {
-            $donations = $this->donationsRepository->findAll();
+        $donationsArray = $this->serializeObjectsList->toArray($donations);
 
-            $donationsArray = $this->serializeObjectsList->toArray($donations);
-
-            return new JsonResponse($donationsArray, 200);
-        }
+        return new JsonResponse($donationsArray, Response::HTTP_OK, [
+            'Content-Type' => 'application/json'
+        ]);
+    }
 }
