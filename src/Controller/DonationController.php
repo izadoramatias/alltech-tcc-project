@@ -49,26 +49,4 @@ class DonationController
             'Content-Type' => 'application/json'
         ]);
     }
-
-    public function listDonation(int $id): JsonResponse
-    {
-        $donation = $this->donationsRepository->findOneBy(['id_donation' => $id]);
-
-        $response = ResponseHelper::response($donation);
-
-        return new JsonResponse($response->jsonSerialize(), 200, [
-            'Content-Type' => 'application/json'
-        ]);
-    }
-
-    public function listDonations(): JsonResponse
-    {
-        $donations = $this->donationsRepository->findAll();
-
-        $donationsArray = $this->serializeObjectsList->toArray($donations);
-
-        return new JsonResponse($donationsArray, Response::HTTP_OK, [
-            'Content-Type' => 'application/json'
-        ]);
-    }
 }
