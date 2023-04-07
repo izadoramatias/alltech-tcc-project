@@ -17,7 +17,7 @@ class Admin
     #[ORM\Column(length: 45)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 45)]
+    #[ORM\Column(length: 100)]
     private ?string $password = null;
 
     public function getIdAdmin(): ?int
